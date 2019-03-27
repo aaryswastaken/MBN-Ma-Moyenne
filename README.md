@@ -1,0 +1,1 @@
+This repo is a Firefox plugin for calculating Mon Bureau Numérique's general average

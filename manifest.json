@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+    "name": "Ma Moyenne MBN",
+    "version": "1.2",
+
+    "description": "Show MBN's note general average",
+    "developer": {
+      "name": "Vincent SAHLER",
+      "url": "https://github.com/CofeDrink68"
+    },
+    "homepage_url": "https://github.com/CofeDrink68/MBN-Ma-Moyenne",
+    "icons": {
+      "48": "icons/48.png"
+    },
+
+    "content_scripts": [
+      {
+        "matches": ["https://*.monbureaunumerique.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*"],
+        "js": ["dataV1.js"]
+      }
+    ]
+}
