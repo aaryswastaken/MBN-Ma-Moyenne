@@ -15,7 +15,7 @@ function getAvg(className) {
 }
 
 var para = document.createElement("p");
-var node = document.createTextNode("Moyenne Général : "+getAvg("bulletin-note-eleve").toFixed(2)+"/20.00");
+var node = document.createTextNode("Moyenne Générale : "+getAvg("bulletin-note-eleve").toFixed(2)+"/20.00");
 para.appendChild(node);
 
 var element = document.getElementById("fil_ariane");
