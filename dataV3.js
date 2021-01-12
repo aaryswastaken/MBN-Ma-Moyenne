@@ -21,7 +21,7 @@ var json2 = eval(
         .replaceAll("\n", "")
         .replace(/.*?(var columnDefreleveEleve = )/m, "")
         .replace(/(;var jsonArrayreleveEleve = ).*/m, "")
-        .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": ')
+        // .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": ')
 );
 
 // --------------------- OLD THING  ---------------------
