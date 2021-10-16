@@ -7,8 +7,8 @@ var json = JSON.parse(
         .replace(/(;var dataSourcereleveEleve = ).*/m, "")
 );
 
-var notes = json.results;
-console.log(notes)
+var notes = json.results.filter(x => x.codeMatiere !== null);
+// console.log({notes});
 
 var username = document.getElementsByClassName("user")[0].children[0].innerText;
 
@@ -38,7 +38,7 @@ notes.forEach(element => {
         bestSum = parseFloat(bestSum)+parseFloat(element.moyenneClasseMax.replaceAll(",", "."));
         worseSum = parseFloat(worseSum)+parseFloat(element.moyenneClasseMin.replaceAll(",", "."));
 
-        console.log(element.moyenneEleve.toString()+" : "+sum);
+        // console.log(element.moyenneEleve.toString()+" : "+sum);
     }
 });
 
@@ -49,6 +49,7 @@ var average = (averageSum / leng).toFixed(2);
 
 // PRINT THE AVERAGE
 
+/*
 var tr = document.createElement("tr");
 
 var td1 = "<td headers=\"yui-dt0-th-matiere \" class=\"yui-dt0-col-matiere yui-dt-col-matiere yui-dt-sortable yui-dt-first\" style=\"width: 150px;\"><div class=\"yui-dt-liner\"><div class=\"bulletin-matiere-ligne\">" +
@@ -74,6 +75,7 @@ var td6 = "<td headers=\"yui-dt0-th-yui-dt-col4 yui-dt0-th-moyenneClasseMax \" c
 tr.innerHTML=td1+td2+td3+td3+td5+td6;
 
 document.getElementById("releve-eleve").children[1].children[3].appendChild(tr);
+*/
 
 // --------------------- NEW SYSTEM ---------------------
 
@@ -115,7 +117,7 @@ function style(user, max, moy, min) {
     var minmoyFrontier = parseFloat((g(moy) - g(min)) * 0.1) + g(min);
     var moymaxFrontier = parseFloat((g(max) - g(moy)) * 0.1) + g(moy);
 
-    console.log({user: user, max: max, moy: moy, min: min, front: moymaxFrontier});
+    // console.log({user: user, max: max, moy: moy, min: min, front: moymaxFrontier});
 
     if(isNaN(user) || user == null) {
         return definitions.unknown;
@@ -148,8 +150,8 @@ function style(user, max, moy, min) {
     }
 }
 
-console.log(json);
-console.log(json2);
+// console.log({json});
+// console.log({json2});
 
 var old = document.getElementById("releve-eleve").innerHTML;
 document.getElementById("releve-eleve").innerHTML = "";
@@ -200,11 +202,11 @@ var moyenneObject = {
     notesEleve: []
 };
 
-console.log(moyenneObject);
+// console.log(moyenneObject);
 
 notes.push(moyenneObject);
 
-console.log("BLLELELLELELELLEBELEBLEBELBLEB")
+// console.log("BLLELELLELELELLEBELEBLEBELBLEB")
 
 notes.forEach( (e) => {
     var mat = "<tr><div><td colspan='2' style='border-bottom: black solid 1px;width:50%;'>" +
@@ -220,7 +222,7 @@ notes.forEach( (e) => {
     var note = "";
     e.notesEleve.forEach( (_note) => {
         let dvr = noteArray[_note.idDevoir];
-        note += "<tr style='margin-left: 30px'>" +
+        note += `<tr style='margin-left: 30px' class='new-devoir' id='dev-id-${_note.idDevoir}'>` +
             "<td>"+dvr.titreDevoir+"</td>" +
             "<td>"+dvr.dateDevoir+"</td>"+
             "<td style='text-align: left;'>"+f(dvr.max)+"</td>"+
@@ -242,6 +244,47 @@ div.innerHTML = div.innerHTML+total;
 document.getElementById("releve-eleve").appendChild(div);
 var newPrint = document.getElementById("releve-eleve").innerHTML;
 
+// Listeners definitions
+
+function applyListeners(className, idFunc) {
+    Array.from(document.getElementsByClassName(className)).forEach(note => {
+        let id = note.id;
+        let idDevoir = Number.parseInt(idFunc(id));
+        let paramsRAW = json2[3].metas.devoirs.filter(dev => dev.idDevoir === idDevoir)[0];
+        let params = {
+            actionDownload: "TELECHARGER_PJ_ELEVE",
+            idDatagrid: "releveEleve",
+            jsonColumnName: "notesEleve",
+            proc: "CONSULTER_RELEVE",
+            resultatCompetences: [],
+            uid: null,
+            valeur: paramsRAW.note,
+            commentaireEnseignant: paramsRAW.commentaireEnseignant,
+            facultatif: paramsRAW.facultatif,
+            idDevoir: idDevoir,
+            libelleCompetence: paramsRAW.libelleCompetence,
+            libelleMotifNonNotation: paramsRAW.libelleMotifNonNotation
+        }
+
+        // console.log({params});
+        note.onclick = () => {
+            // onClickafficherPopinReleveNote({}, params);
+            location.href = `javascript:afficherPopinReleveNote({}, ${JSON.stringify(params)})`
+        }
+    })
+}
+
+// afficherPopinReleveNote(ev, params)
+function setupOldListeners() {
+    applyListeners("bloc-note-releve", id => id.replaceAll(/resultat-devoir-/gm, ""))
+}
+
+function setupNewListeners() {
+    applyListeners("new-devoir", id => id.replaceAll(/dev-id-/gm, ""));
+}
+
+setupNewListeners();  // Apply for actual
+
 // Go to the old table
 var li = document.createElement("li");
 li.classList = ["tabs__item"];
@@ -252,8 +295,10 @@ var isNewTheActual = true;
 inner.onclick = () => {
     if(isNewTheActual) {
         document.getElementById("releve-eleve").innerHTML = old;
+        setupOldListeners()
     } else {
         document.getElementById("releve-eleve").innerHTML = newPrint;
+        setupNewListeners() // Doesn't refer (for now) to a new listener but rather to the listener of the new print
     }
     isNewTheActual = !isNewTheActual;
 }
