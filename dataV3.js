@@ -95,8 +95,10 @@ function g(n) {
 
 const definitions = {
     // theWorse: "background-color: red;",
-    theWorse: "color: red;font-weight: bolder;",
-    bad: "color: red;",
+    // theWorse: "color: red;font-weight: bolder;",
+    // bad: "color: red;",
+    theWorse: "color: rgb(255 218 106);",
+    bad: "color: rgb(255 218 106);",
 
     // theAverage: "background-color: #ebe88f;",
     theAverage: "color: rgb(255 218 106);font-weight: bolder;",
@@ -209,7 +211,7 @@ notes.push(moyenneObject);
 // console.log("BLLELELLELELELLEBELEBLEBELBLEB")
 
 notes.forEach( (e) => {
-    var mat = "<tr><div><td colspan='2' style='border-bottom: black solid 1px;width:50%;'>" +
+    var mat = "<tr class='nohover'><div><td colspan='2' style='border-bottom: black solid 1px;width:50%;'>" +
         "<div style='float: right;margin-top: 1.5%;margin-right: 4%;"+(isFirst ? "" : "padding-top:20px;")+"'><div style='font-size: 1.5em;display: inline-block;"+style(e.moyenneEleve, e.moyenneClasseMax, e.moyenneClasse, e.moyenneClasseMin)+"'>"+f(e.moyenneEleve)+"</div><div style='font-size: 1em;display: inline-block;margin-left:5px;'>/20</div></div> " +
         "<div style='font-size: 2em;"+(isFirst ? "" : "padding-top:20px;")+"'>"+e.matiere+"</div>" +
         "<div style='font-size: 1em;display:inline-block;margin-left: 10px'>"+e.enseignants+"</div></td>" +
@@ -223,7 +225,7 @@ notes.forEach( (e) => {
     e.notesEleve.forEach( (_note) => {
         let dvr = noteArray[_note.idDevoir];
         note += `<tr style='margin-left: 30px' class='new-devoir' id='dev-id-${_note.idDevoir}'>` +
-            "<td>"+dvr.titreDevoir+"</td>" +
+            "<td style='padding-left: 15px;'>"+dvr.titreDevoir+"</td>" +
             "<td>"+dvr.dateDevoir+"</td>"+
             "<td style='text-align: left;'>"+f(dvr.max)+"</td>"+
             "<td style='text-align: left;'>"+f(dvr.moyenne)+"</td>"+
