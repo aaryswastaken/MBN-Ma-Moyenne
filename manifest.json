@@ -1,18 +1,32 @@
 {
-    "manifest_version": 2,
-    "name": "Ma Moyenne MBN",
-    "version": "1.4",
-
-    "description": "Show MBN's note general average",
-    "homepage_url": "https://github.com/CofeDrink68/MBN-Ma-Moyenne",
-    "icons": {
-      "48": "icons/48.png"
-    },
-
-    "content_scripts": [
-      {
-        "matches": ["https://*.monbureaunumerique.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*"],
-        "js": ["dataV3.js"]
-      }
-    ]
+  "manifest_version": 2,
+  "name": "Ma Moyenne MBN",
+  "version": "1.4",
+  "description": "Affiche la moyenne générale de MBN",
+  "homepage_url": "https://github.com/aaryswastaken/MBN-Ma-Moyenne",
+  "icons": {
+    "48": "icons/48.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.monbureaunumerique.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.mon-ent-occitanie.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.arsene76.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.ent27.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.entcreuse.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.ent.auvergnerhonealpes.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.agora06.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.cybercolleges42.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.ecollege.haute-garonne.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.moncollege.valdoise.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.webcollege.seinesaintdenis.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.eclat-bfc.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.aucollege84.vaucluse.fr/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.demo.skokengo.com/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*",
+        "https://*.formation.skolengo.com/sg.do?PROC=CONSULTER_RELEVE&ACTION=AFFICHER_RELEVE_NOTES_ELEVE*"
+      ],
+      "js": ["dataV3.js"]
+    }
+  ]
 }
